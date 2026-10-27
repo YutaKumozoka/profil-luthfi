@@ -1,476 +1,791 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Profil pribadi dan rekam jejak pembelajaran Luthfi Atthariq Sunandar - Teknik Informatika UMC.">
-  <title>Luthfi Atthariq Sunandar — Profil &amp; Pembelajaran</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+  <meta name="description"
+    content="Profil pribadi, rekam jejak pembelajaran, dan koleksi favorit Luthfi Atthariq Sunandar - Teknik Informatika UMC.">
+  <title>Luthfi Atthariq Sunandar — Retro-Modern Portfolio</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕹️</text></svg>">
 
-  <style>
-    :root {
-      --bg: #f5f7fb; --surface: #ffffff; --text: #16202e; --muted: #5c6879;
-      --accent: #4f46e5; --accent-soft: #eef0ff; --border: #e3e8f0;
-      --shadow: 0 8px 30px rgba(20, 30, 60, .07);
-    }
-    [data-theme="dark"] {
-      --bg: #0f1420; --surface: #171e2d; --text: #eef2f8; --muted: #a3aec0;
-      --accent: #818cf8; --accent-soft: #232a45; --border: #2a3348;
-      --shadow: 0 8px 30px rgba(0, 0, 0, .25);
-    }
+  <!-- Google Fonts: Space Grotesk (Modern) & Space Mono (Retro Monospace) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-    body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: var(--bg); color: var(--text); line-height: 1.7;
-      transition: background .3s, color .3s;
-    }
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1080px, 90%); margin: auto; }
-    section { padding: 80px 0; }
-
-    /* ── NAVBAR ────────────────────────────────────────────── */
-    header { position: sticky; top: 0; z-index: 100; background: var(--surface); border-bottom: 1px solid var(--border); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .logo { font-weight: 800; font-size: 1.15rem; }
-    .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 28px; align-items: center; }
-    .nav-links a {
-      font-size: .92rem; color: var(--muted); transition: color .2s;
-      position: relative; padding-bottom: 2px;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
-      height: 2px; background: var(--accent); border-radius: 2px;
-      transform: scaleX(0); transition: transform .2s;
-    }
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--accent); }
-    .nav-links a:hover::after,
-    .nav-links a.active::after { transform: scaleX(1); }
-    .nav-actions { display: flex; gap: 10px; }
-    .icon-btn {
-      background: var(--accent-soft); color: var(--text); border: 1px solid var(--border);
-      border-radius: 10px; width: 40px; height: 40px; cursor: pointer; font-size: 1rem;
-      transition: background .2s, border-color .2s, color .2s;
-    }
-    .icon-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    #menu-btn { display: none; }
-
-    /* ── HERO ──────────────────────────────────────────────── */
-    .hero { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; padding: 90px 0; }
-    .badge {
-      display: inline-block; background: var(--accent-soft); color: var(--accent);
-      padding: 6px 14px; border-radius: 30px; font-size: .8rem; font-weight: 600; margin-bottom: 20px;
-    }
-    h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; letter-spacing: -1px; }
-    h1 span { color: var(--accent); }
-    .hero p { color: var(--muted); margin: 20px 0 30px; max-width: 480px; }
-    .hero-btns { display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn {
-      display: inline-block; padding: 13px 24px; border-radius: 10px;
-      background: var(--accent); color: #fff; font-weight: 600; font-size: .92rem;
-      transition: transform .2s, opacity .2s, box-shadow .2s;
-    }
-    .btn:hover { transform: translateY(-3px); opacity: .92; box-shadow: 0 6px 20px rgba(79,70,229,.35); }
-    .btn.outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-    .btn.outline:hover { box-shadow: none; border-color: var(--accent); color: var(--accent); opacity: 1; }
-
-    .profile-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 36px; text-align: center; box-shadow: var(--shadow);
-    }
-    .avatar {
-      width: 120px; height: 120px; margin: 0 auto 18px; border-radius: 50%;
-      display: grid; place-items: center;
-      background: linear-gradient(135deg, var(--accent), #a855f7);
-      color: #fff; font-size: 2.4rem; font-weight: 800;
-    }
-    .profile-card h3 { font-size: 1.2rem; }
-    .profile-card p { color: var(--muted); font-size: .9rem; }
-    .status { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: .8rem; color: var(--muted); }
-    .status::before {
-      content: ""; width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,.4); }
-      50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
-    }
-
-    /* ── SECTION TITLE ─────────────────────────────────────── */
-    .eyebrow { color: var(--accent); font-size: .8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
-    h2 { font-size: 2rem; margin: 8px 0 12px; letter-spacing: -.5px; }
-    .section-desc { color: var(--muted); margin-bottom: 36px; max-width: 600px; }
-
-    /* ── ABOUT ─────────────────────────────────────────────── */
-    .about { display: grid; grid-template-columns: 1.3fr 1fr; gap: 50px; align-items: start; }
-    .about p { color: var(--muted); margin-bottom: 16px; }
-    .info-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
-    .info-row { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; font-size: .9rem; border-bottom: 1px solid var(--border); }
-    .info-row:last-child { border: 0; }
-    .info-row span:first-child { color: var(--muted); white-space: nowrap; }
-    .info-row strong { text-align: right; }
-
-    /* ── SKILLS ────────────────────────────────────────────── */
-    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-    .filter-btn {
-      background: var(--surface); color: var(--muted); border: 1px solid var(--border);
-      padding: 8px 18px; border-radius: 30px; cursor: pointer; font-size: .85rem; transition: all .2s;
-    }
-    .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 16px; padding: 26px; transition: transform .25s, box-shadow .25s;
-    }
-    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-    .card[hidden] { display: none; }
-    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .card-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); display: grid; place-items: center; font-size: 1.3rem; }
-    .level { font-size: .7rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: var(--accent-soft); color: var(--accent); }
-    .card h3 { font-size: 1.05rem; margin-bottom: 8px; }
-    .card p { font-size: .87rem; color: var(--muted); margin-bottom: 18px; }
-    .bar { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
-    .bar span {
-      display: block; height: 100%; width: 0;
-      background: linear-gradient(90deg, var(--accent), #a855f7);
-      border-radius: 10px; transition: width 1s cubic-bezier(.4,0,.2,1);
-    }
-    .bar-label { display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); margin: 8px 0 16px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tags span { font-size: .72rem; background: var(--bg); border: 1px solid var(--border); padding: 3px 9px; border-radius: 6px; color: var(--muted); }
-
-    /* ── TIMELINE ──────────────────────────────────────────── */
-    .timeline { border-left: 2px solid var(--border); margin-left: 10px; padding-left: 30px; }
-    .timeline-item { position: relative; padding-bottom: 34px; }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-item::before {
-      content: ""; position: absolute; left: -39px; top: 6px;
-      width: 14px; height: 14px; border-radius: 50%;
-      background: var(--accent); border: 3px solid var(--bg);
-      transition: transform .3s;
-    }
-    .timeline-item:hover::before { transform: scale(1.4); }
-    .timeline-item small { color: var(--accent); font-weight: 700; font-size: .75rem; letter-spacing: 1px; }
-    .timeline-item h3 { margin: 4px 0; font-size: 1.05rem; }
-    .timeline-item p { color: var(--muted); font-size: .9rem; }
-
-    /* ── CONTACT ───────────────────────────────────────────── */
-    .contact-box {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 44px; text-align: center;
-    }
-    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
-
-    /* ── FOOTER ────────────────────────────────────────────── */
-    footer { padding: 28px 0; text-align: center; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--border); }
-    footer a { color: var(--accent); }
-    footer a:hover { text-decoration: underline; }
-
-    /* ── REVEAL ANIMATION ──────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
-    .reveal.visible { opacity: 1; transform: none; }
-
-    /* ── RESPONSIVE ────────────────────────────────────────── */
-    @media (max-width: 860px) {
-      .hero, .about { grid-template-columns: 1fr; gap: 36px; }
-      .cards { grid-template-columns: repeat(2, 1fr); }
-      .profile-card { max-width: 360px; }
-    }
-    @media (max-width: 600px) {
-      section { padding: 56px 0; }
-      .cards { grid-template-columns: 1fr; }
-      #menu-btn { display: block; }
-      .nav-links {
-        display: none; position: absolute; top: 72px; left: 0; right: 0;
-        background: var(--surface); flex-direction: column; gap: 0;
-        padding: 12px 5%; border-bottom: 1px solid var(--border);
-        box-shadow: 0 8px 20px rgba(0,0,0,.08);
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { padding: 12px 0; width: 100%; }
-      .nav-links a::after { display: none; }
-      .hero-btns { flex-direction: column; }
-      .contact-box { padding: 30px 20px; }
-    }
-  </style>
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       NAVBAR (RETRO-MODERN TASKBAR)
+  ══════════════════════════════════════════════════════════════════════════ -->
   <header>
     <nav class="nav container">
-      <a href="#beranda" class="logo">Luthfi<span> Atthariq Sunandar</span></a>
+      <a href="#beranda" class="logo">
+        <span class="logo-badge">~/</span>Luthfi.dev
+      </a>
+
       <div class="nav-links" id="nav-links">
-        <a href="#beranda">Beranda</a>
-        <a href="#tentang">Tentang</a>
-        <a href="#pembelajaran">Pembelajaran</a>
-        <a href="#perjalanan">Perjalanan</a>
-        <a href="#kontak">Kontak</a>
+        <a href="#beranda">00. Beranda</a>
+        <a href="#tentang">01. Tentang</a>
+        <a href="#pembelajaran">02. Skill</a>
+        <a href="#favorit">03. Favorit</a>
+        <a href="#perjalanan">04. Log</a>
+        <a href="#kontak">05. Sosial</a>
       </div>
+
       <div class="nav-actions">
-        <button class="icon-btn" id="theme-btn" aria-label="Ganti tema">🌙</button>
-        <button class="icon-btn" id="menu-btn" aria-label="Buka menu">☰</button>
+        <button class="icon-btn" id="theme-btn" aria-label="Ganti Tema">🌙</button>
+        <button class="icon-btn" id="menu-btn" aria-label="Buka Menu">☰</button>
       </div>
     </nav>
   </header>
 
-  <!-- ══ BERANDA ══════════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       HERO (RETRO TERMINAL + PROFILE CARD)
+  ══════════════════════════════════════════════════════════════════════════ -->
   <section id="beranda" class="container hero">
-    <div>
-      <span class="badge">Profil &amp; Rekam Jejak Belajar</span>
-      <h1>Halo, saya <span>Luthfi Atthariq.</span><br>Mahasiswa Teknik Informatika.</h1>
-      <p>Saat ini menempuh studi di Universitas Muhammadiyah Cirebon. Fokus saya adalah memahami fondasi rekayasa perangkat lunak, pemrograman berorientasi objek, dan pengembangan aplikasi berbasis web.</p>
-      <div class="hero-btns">
-        <a href="#pembelajaran" class="btn">Lihat yang Saya Pelajari</a>
-        <a href="#kontak" class="btn outline">Hubungi Saya</a>
+    <div class="hero-terminal" data-reveal>
+      <div class="window-header">
+        <div class="window-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span>bash — 80x24</span>
+        <span class="badge-retro">v2.0.26</span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-prompt">$ cat profile_info.txt</div>
+        <h1>Halo, saya <span class="highlight">Luthfi Atthariq Sunandar.</span><br>Mahasiswa Teknik Informatika.</h1>
+        <p>
+          Menempuh studi di <strong>Universitas Muhammadiyah Cirebon</strong>. Tertarik pada rekayasa perangkat lunak,
+          paradigma berorientasi objek, serta pengembangan sistem berbasis web dengan kode yang bersih dan terstruktur.
+        </p>
+        <div class="hero-btns">
+          <a href="#pembelajaran" class="btn">🚀 Jelajahi Skill</a>
+          <a href="#favorit" class="btn yellow">⭐ Buku &amp; Lagu Favorit</a>
+          <a href="#kontak" class="btn outline">💬 Hubungi Saya</a>
+        </div>
       </div>
     </div>
-    <div class="profile-card">
-      <div class="avatar">LA</div>
-      <h3>Luthfi Atthariq Sunandar</h3>
-      <p>Mahasiswa · Teknik Informatika</p>
-      <div class="status">Terbuka untuk belajar &amp; berkolaborasi</div>
+
+    <!-- Retro Profile Card -->
+    <div class="profile-card" data-reveal>
+      <div class="window-header">
+        <div class="window-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span>user_card.bmp</span>
+        <span>ID #2305</span>
+      </div>
+      <div class="profile-card-body">
+        <div class="avatar-wrapper">
+          <div class="avatar-retro">LA</div>
+          <span class="pixel-tag">ONLINE</span>
+        </div>
+        <h3>Luthfi Atthariq S.</h3>
+        <p>Informatics Engineering · UMC</p>
+        <div class="status-badge">Terbuka untuk kolaborasi &amp; diskusi</div>
+      </div>
     </div>
   </section>
 
-  <!-- ══ TENTANG ═══════════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       TENTANG SAYA
+  ══════════════════════════════════════════════════════════════════════════ -->
   <section id="tentang" class="container">
-    <span class="eyebrow">01 / Tentang Saya</span>
-    <h2>Sedikit tentang saya</h2>
-    <div class="about">
-      <div data-reveal>
-        <p>Saya adalah mahasiswa Teknik Informatika yang antusias terhadap cara kerja sistem perangkat lunak, mulai dari tahap analisis kebutuhan hingga implementasi kode.</p>
-        <p>Saya terbiasa bekerja dengan bahasa seperti Python, Native PHP, dan C. Bagi saya, menulis kode yang bersih dan terstruktur (terutama dengan pendekatan OOP) sama pentingnya dengan merancang arsitektur sistem yang baik sebelum kode tersebut ditulis.</p>
-        <p>Halaman ini saya buat untuk mendokumentasikan perjalanan belajar saya, sekaligus sebagai tugas praktik mata kuliah Analisis dan Desain Perangkat Lunak.</p>
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">01 // TENTANG SAYA</span>
+      <h2>Mengenal Lebih Dekat</h2>
+      <p class="section-desc">Dokumentasi perjalanan akademik, minat rekayasa sistem, dan profil data diri.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span>README.md</span>
+          <span>UTF-8</span>
+        </div>
+        <div class="about-card-body">
+          <p>
+            Saya adalah mahasiswa Teknik Informatika yang antusias terhadap cara kerja sistem perangkat lunak, mulai
+            dari tahap analisis kebutuhan hingga implementasi kode.
+          </p>
+          <p>
+            Saya terbiasa bekerja dengan bahasa seperti <strong>Python</strong>, <strong>Native PHP</strong>, dan
+            <strong>C</strong>. Bagi saya, menulis kode yang bersih dan terstruktur (terutama dengan pendekatan OOP)
+            sama pentingnya dengan merancang arsitektur sistem yang baik sebelum kode tersebut ditulis.
+          </p>
+          <p>
+            Website ini saya bangun dengan perpaduan gaya <em>retro-modern</em> untuk mendokumentasikan perjalanan
+            belajar, sekaligus memenuhi tugas praktik mata kuliah <strong>Analisis dan Desain Perangkat Lunak</strong>.
+          </p>
+        </div>
       </div>
-      <div class="info-box" data-reveal>
-        <div class="info-row"><span>Nama</span><strong>Luthfi Atthariq Sunandar</strong></div>
-        <div class="info-row"><span>NIM</span><strong>[NIM Kamu]</strong></div>
-        <div class="info-row"><span>Program Studi</span><strong>Teknik Informatika</strong></div>
-        <div class="info-row"><span>Universitas</span><strong>UM Cirebon</strong></div>
-        <div class="info-row"><span>Bahasa</span><strong>Python, PHP, C</strong></div>
+
+      <div class="info-window" data-reveal>
+        <div class="window-header">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span>sys_info.cfg</span>
+          <span>RO</span>
+        </div>
+        <div class="info-window-body">
+          <table class="info-table">
+            <tr>
+              <td class="label">NAMA</td>
+              <td class="val">Luthfi Atthariq Sunandar</td>
+            </tr>
+            <tr>
+              <td class="label">NIM</td>
+              <td class="val"><span class="badge-retro" style="background:var(--accent-yellow)">230511104</span></td>
+            </tr>
+            <tr>
+              <td class="label">PRODI</td>
+              <td class="val">Teknik Informatika</td>
+            </tr>
+            <tr>
+              <td class="label">KAMPUS</td>
+              <td class="val">Universitas Muhammadiyah Cirebon</td>
+            </tr>
+            <tr>
+              <td class="label">BAHASA</td>
+              <td class="val">Python, PHP, C</td>
+            </tr>
+            <tr>
+              <td class="label">STATUS</td>
+              <td class="val" style="color:var(--accent-green)">● AKTIF KULIAH</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ PEMBELAJARAN ══════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       PEMBELAJARAN & SKILLS
+  ══════════════════════════════════════════════════════════════════════════ -->
   <section id="pembelajaran" class="container">
-    <span class="eyebrow">02 / Pembelajaran</span>
-    <h2>Hal yang sudah saya pelajari</h2>
-    <p class="section-desc">Dokumentasi materi dan bahasa pemrograman yang sudah saya pelajari di bangku kuliah dan praktik mandiri.</p>
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">02 // PEMBELAJARAN</span>
+      <h2>Keahlian &amp; Materi Kuliah</h2>
+      <p class="section-desc">Dokumentasi materi dan bahasa pemrograman yang dipelajari di bangku perkuliahan dan
+        eksplorasi mandiri.</p>
+    </div>
 
     <div class="filters" role="group" aria-label="Filter kategori materi">
-      <button class="filter-btn active" data-filter="semua">Semua</button>
+      <button class="filter-btn active" data-filter="semua">Semua (All)</button>
       <button class="filter-btn" data-filter="konsep">Konsep &amp; Metodologi</button>
       <button class="filter-btn" data-filter="bahasa">Bahasa Pemrograman</button>
       <button class="filter-btn" data-filter="web">Pengembangan Web</button>
     </div>
 
-    <div class="cards">
+    <div class="cards-grid">
       <!-- SKILL 1: OOP -->
-      <article class="card" data-category="konsep" data-reveal>
-        <div class="card-top"><div class="card-icon">🧩</div><span class="level">Lancar</span></div>
-        <h3>Pemrograman Berorientasi Objek</h3>
-        <p>Memahami dan menerapkan Encapsulation, Inheritance, Polymorphism, dan Abstraction untuk merancang kode yang modular dan mudah dipelihara.</p>
-        <div class="bar-label"><span>Penguasaan</span><span>90%</span></div>
-        <div class="bar"><span data-level="90"></span></div>
-        <div class="tags"><span>Class</span><span>Inheritance</span><span>Polymorphism</span></div>
+      <article class="skill-card" data-category="konsep" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>module_oop.so</span>
+          <span>90%</span>
+        </div>
+        <div class="skill-body">
+          <div class="skill-top">
+            <div class="skill-icon-box">🧩</div>
+            <span class="skill-badge">LANCAR</span>
+          </div>
+          <h3>Pemrograman Berorientasi Objek</h3>
+          <p>Menerapkan konsep Encapsulation, Inheritance, Polymorphism, dan Abstraction untuk arsitektur kode yang
+            terstruktur dan mudah di-maintain.</p>
+          <div class="meter-label"><span>Mastery Level</span><span>90%</span></div>
+          <div class="retro-meter">
+            <div class="retro-meter-fill" data-level="90"></div>
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">Class</span><span class="tag-retro">Inheritance</span><span
+              class="tag-retro">Polymorphism</span>
+          </div>
+        </div>
       </article>
 
       <!-- SKILL 2: Software Engineering -->
-      <article class="card" data-category="konsep" data-reveal>
-        <div class="card-top"><div class="card-icon">📐</div><span class="level">Sudah Praktik</span></div>
-        <h3>Software Engineering</h3>
-        <p>Mempelajari SDLC, analisis kebutuhan pengguna, hingga perancangan sistem menggunakan diagram UML (Use Case, Activity, Class Diagram).</p>
-        <div class="bar-label"><span>Penguasaan</span><span>75%</span></div>
-        <div class="bar"><span data-level="75"></span></div>
-        <div class="tags"><span>UML</span><span>SDLC</span><span>Analisis Kebutuhan</span></div>
+      <article class="skill-card" data-category="konsep" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>module_se.so</span>
+          <span>75%</span>
+        </div>
+        <div class="skill-body">
+          <div class="skill-top">
+            <div class="skill-icon-box">📐</div>
+            <span class="skill-badge">PRAKTIK</span>
+          </div>
+          <h3>Software Engineering</h3>
+          <p>Mempelajari siklus SDLC, analisis kebutuhan perangkat lunak, serta visualisasi model sistem melalui diagram
+            UML.</p>
+          <div class="meter-label"><span>Mastery Level</span><span>75%</span></div>
+          <div class="retro-meter">
+            <div class="retro-meter-fill" data-level="75"></div>
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">UML</span><span class="tag-retro">SDLC</span><span class="tag-retro">Analisis
+              Kebutuhan</span>
+          </div>
+        </div>
       </article>
 
       <!-- SKILL 3: Web Apps -->
-      <article class="card" data-category="web" data-reveal>
-        <div class="card-top"><div class="card-icon">🌐</div><span class="level">Lancar</span></div>
-        <h3>Aplikasi Berbasis Web</h3>
-        <p>Membangun aplikasi web dinamis menggunakan Native PHP, menghubungkan dengan database, serta merancang antarmuka yang responsif.</p>
-        <div class="bar-label"><span>Penguasaan</span><span>85%</span></div>
-        <div class="bar"><span data-level="85"></span></div>
-        <div class="tags"><span>Native PHP</span><span>HTML/CSS</span><span>MySQL</span></div>
+      <article class="skill-card" data-category="web" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>module_web.so</span>
+          <span>85%</span>
+        </div>
+        <div class="skill-body">
+          <div class="skill-top">
+            <div class="skill-icon-box">🌐</div>
+            <span class="skill-badge">LANCAR</span>
+          </div>
+          <h3>Aplikasi Berbasis Web</h3>
+          <p>Membangun aplikasi dinamis menggunakan Native PHP, integrasi basis data MySQL, dan antarmuka web
+            interaktif.</p>
+          <div class="meter-label"><span>Mastery Level</span><span>85%</span></div>
+          <div class="retro-meter">
+            <div class="retro-meter-fill" data-level="85"></div>
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">Native PHP</span><span class="tag-retro">HTML/CSS</span><span
+              class="tag-retro">MySQL</span>
+          </div>
+        </div>
       </article>
 
       <!-- SKILL 4: Python -->
-      <article class="card" data-category="bahasa" data-reveal>
-        <div class="card-top"><div class="card-icon">🐍</div><span class="level">Lancar</span></div>
-        <h3>Python</h3>
-        <p>Menggunakan Python untuk scripting, pemecahan masalah algoritmik, dan implementasi konsep OOP secara praktis.</p>
-        <div class="bar-label"><span>Penguasaan</span><span>85%</span></div>
-        <div class="bar"><span data-level="85"></span></div>
-        <div class="tags"><span>Scripting</span><span>OOP</span><span>Algoritma</span></div>
+      <article class="skill-card" data-category="bahasa" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>python3.exe</span>
+          <span>85%</span>
+        </div>
+        <div class="skill-body">
+          <div class="skill-top">
+            <div class="skill-icon-box">🐍</div>
+            <span class="skill-badge">LANCAR</span>
+          </div>
+          <h3>Python</h3>
+          <p>Eksplorasi algoritma pemrograman, automasi skrip, pemecahan masalah data, dan pengimplementasian OOP secara
+            praktis.</p>
+          <div class="meter-label"><span>Mastery Level</span><span>85%</span></div>
+          <div class="retro-meter">
+            <div class="retro-meter-fill" data-level="85"></div>
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">OOP</span><span class="tag-retro">Scripting</span><span
+              class="tag-retro">Algoritma</span>
+          </div>
+        </div>
       </article>
 
       <!-- SKILL 5: Native PHP -->
-      <article class="card" data-category="bahasa" data-reveal>
-        <div class="card-top"><div class="card-icon">🐘</div><span class="level">Menengah</span></div>
-        <h3>Native PHP</h3>
-        <p>Pemrograman web sisi server tanpa framework. Memahami alur request, session, cookie, dan integrasi query database MySQL.</p>
-        <div class="bar-label"><span>Penguasaan</span><span>75%</span></div>
-        <div class="bar"><span data-level="75"></span></div>
-        <div class="tags"><span>MVC Dasar</span><span>Session</span><span>PDO/MySQLi</span></div>
+      <article class="skill-card" data-category="bahasa" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>php_engine.exe</span>
+          <span>75%</span>
+        </div>
+        <div class="skill-body">
+          <div class="skill-top">
+            <div class="skill-icon-box">🐘</div>
+            <span class="skill-badge">MENENGAH</span>
+          </div>
+          <h3>Native PHP</h3>
+          <p>Backend tanpa framework. Memahami alur request HTTP, session, authentication, dan transaksi database
+            relasional.</p>
+          <div class="meter-label"><span>Mastery Level</span><span>75%</span></div>
+          <div class="retro-meter">
+            <div class="retro-meter-fill" data-level="75"></div>
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">Session</span><span class="tag-retro">PDO/MySQLi</span><span
+              class="tag-retro">CRUD</span>
+          </div>
+        </div>
       </article>
 
       <!-- SKILL 6: C -->
-      <article class="card" data-category="bahasa" data-reveal>
-        <div class="card-top"><div class="card-icon">⚙️</div><span class="level">Menengah</span></div>
-        <h3>Bahasa C</h3>
-        <p>Memahami fondasi pemrograman tingkat rendah, manajemen memori (pointer), dan struktur data dasar.</p>
-        <div class="bar-label"><span>Penguasaan</span><span>65%</span></div>
-        <div class="bar"><span data-level="65"></span></div>
-        <div class="tags"><span>Pointer</span><span>Memory</span><span>Struct</span></div>
+      <article class="skill-card" data-category="bahasa" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>c_compiler.exe</span>
+          <span>65%</span>
+        </div>
+        <div class="skill-body">
+          <div class="skill-top">
+            <div class="skill-icon-box">⚙️</div>
+            <span class="skill-badge">MENENGAH</span>
+          </div>
+          <h3>Bahasa C</h3>
+          <p>Pemrograman tingkat rendah, pemahaman manajemen memori (pointer), alokasi memori dinamis, dan struktur
+            data.</p>
+          <div class="meter-label"><span>Mastery Level</span><span>65%</span></div>
+          <div class="retro-meter">
+            <div class="retro-meter-fill" data-level="65"></div>
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">Pointer</span><span class="tag-retro">Memory</span><span
+              class="tag-retro">Struct</span>
+          </div>
+        </div>
       </article>
     </div>
   </section>
 
-  <!-- ══ PERJALANAN ════════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       FAVORIT (BOOKS, SONGS, TOOLS)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section id="favorit" class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">03 // INSPIRASI &amp; FAVORIT</span>
+      <h2>Koleksi Favorit Saya</h2>
+      <p class="section-desc">Buku rujukan terbaik, musik penemani koding, dan perkakas teknologi yang saya gunakan
+        setiap hari.</p>
+    </div>
+
+    <!-- Retro Tab Selector -->
+    <div class="favorites-tabs">
+      <button class="fav-tab-btn active" data-tab="books">📚 Favorite Books</button>
+      <button class="fav-tab-btn" data-tab="songs">🎵 Favorite Songs</button>
+      <button class="fav-tab-btn" data-tab="tools">🛠️ Favorite Tools</button>
+    </div>
+
+    <!-- TAB 1: FAVORITE BOOKS -->
+    <div class="fav-panel active" id="tab-books">
+      <!-- Book 1 -->
+      <div class="book-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>Naruto Shippuden</span>
+          <span>★★★★★</span>
+        </div>
+        <div class="book-card-body">
+          <span class="book-tag">Software Craftsmanship</span>
+          <h4>Clean Code</h4>
+          <div class="book-author">Robert C. Martin (Uncle Bob)</div>
+          <div class="book-quote">
+            "Even bad code can function. But if code isn't clean, it can bring a development organization to its knees."
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">Refactoring</span>
+            <span class="tag-retro">Best Practice</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Book 2 -->
+      <div class="book-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>book_02.pdf</span>
+          <span>★★★★★</span>
+        </div>
+        <div class="book-card-body">
+          <span class="book-tag">Developer Mindset</span>
+          <h4>The Pragmatic Programmer</h4>
+          <div class="book-author">David Thomas &amp; Andrew Hunt</div>
+          <div class="book-quote">
+            "Don't live with broken windows. Fix each one as soon as it is discovered to keep quality high."
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">Philosophy</span>
+            <span class="tag-retro">Career</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Book 3 -->
+      <div class="book-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>book_03.pdf</span>
+          <span>★★★★★</span>
+        </div>
+        <div class="book-card-body">
+          <span class="book-tag">Visual Algorithms</span>
+          <h4>Grokking Algorithms</h4>
+          <div class="book-author">Aditya Y. Bhargava</div>
+          <div class="book-quote">
+            "An illustrated guide for programmers and other curious people to grasp complex algorithm concepts easily."
+          </div>
+          <div class="tag-list">
+            <span class="tag-retro">Data Structure</span>
+            <span class="tag-retro">Logic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: FAVORITE SONGS -->
+    <div class="fav-panel" id="tab-songs">
+      <!-- Song 1 -->
+      <div class="song-card">
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>tape_side_a.wav</span>
+          <span>PLAYING</span>
+        </div>
+        <div class="song-card-body">
+          <div class="cassette-label">
+            <div class="cassette-spool">💿</div>
+            <div class="song-info">
+              <h4>Resonance</h4>
+              <div class="song-artist">HOME · Synthwave / Chill</div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="retro-equalizer">
+              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span
+                class="eq-bar"></span><span class="eq-bar"></span>
+            </div>
+            <span class="badge-retro" style="background:var(--accent-purple); color:#fff;">FOCUS MODE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Song 2 -->
+      <div class="song-card">
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>tape_side_b.wav</span>
+          <span>PLAYING</span>
+        </div>
+        <div class="song-card-body">
+          <div class="cassette-label">
+            <div class="cassette-spool">📻</div>
+            <div class="song-info">
+              <h4>Midnight City</h4>
+              <div class="song-artist">M83 · Retro Electronic</div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="retro-equalizer">
+              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span
+                class="eq-bar"></span><span class="eq-bar"></span>
+            </div>
+            <span class="badge-retro" style="background:var(--accent-secondary); color:#fff;">NIGHT DRIVE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Song 3 -->
+      <div class="song-card">
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>tape_side_c.wav</span>
+          <span>PLAYING</span>
+        </div>
+        <div class="song-card-body">
+          <div class="cassette-label">
+            <div class="cassette-spool">🎧</div>
+            <div class="song-info">
+              <h4>After Dark</h4>
+              <div class="song-artist">Mr.Kitty · Darkwave / Retro</div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="retro-equalizer">
+              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span
+                class="eq-bar"></span><span class="eq-bar"></span>
+            </div>
+            <span class="badge-retro" style="background:var(--accent-yellow); color:#1a1a1e;">DEEP WORK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: FAVORITE TOOLS -->
+    <div class="fav-panel" id="tab-tools">
+      <!-- Tool 1 -->
+      <div class="tool-card">
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>editor.app</span>
+          <span>PRIMARY</span>
+        </div>
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <div class="tool-icon">💻</div>
+            <div>
+              <h4>Visual Studio Code</h4>
+              <div class="tool-type">Code Editor &amp; Workspace</div>
+            </div>
+          </div>
+          <p>Editor utama dengan dukungan ekosistem ekstensi yang kaya untuk koding Python, PHP, dan HTML/CSS.</p>
+          <div class="tag-list">
+            <span class="tag-retro">Extensions</span><span class="tag-retro">Live Server</span><span
+              class="tag-retro">Git GUI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool 2 -->
+      <div class="tool-card">
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>vcs_tool.app</span>
+          <span>ESSENTIAL</span>
+        </div>
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <div class="tool-icon">🐙</div>
+            <div>
+              <h4>Git &amp; GitHub</h4>
+              <div class="tool-type">Version Control &amp; Hosting</div>
+            </div>
+          </div>
+          <p>Mengelola riwayat versi kodingan, branch manajemen, serta kolaborasi repositori dan deploy web.</p>
+          <div class="tag-list">
+            <span class="tag-retro">Commit</span><span class="tag-retro">GitHub Pages</span><span
+              class="tag-retro">CLI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool 3 -->
+      <div class="tool-card">
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+              class="dot green"></span></div>
+          <span>db_client.app</span>
+          <span>DATABASE</span>
+        </div>
+        <div class="tool-card-body">
+          <div class="tool-top">
+            <div class="tool-icon">🗄️</div>
+            <div>
+              <h4>MySQL &amp; DBeaver</h4>
+              <div class="tool-type">Database Management</div>
+            </div>
+          </div>
+          <p>Merancang skema database relasional, menulis query SQL, dan menguji relasi entitas data.</p>
+          <div class="tag-list">
+            <span class="tag-retro">Relational DB</span><span class="tag-retro">SQL Queries</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       PERJALANAN / LOG BELAJAR
+  ══════════════════════════════════════════════════════════════════════════ -->
   <section id="perjalanan" class="container">
-    <span class="eyebrow">03 / Perjalanan</span>
-    <h2>Langkah belajar saya</h2>
-    <p class="section-desc">Rekam jejak akademik dan praktis saya di Teknik Informatika.</p>
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">04 // SYSTEM LOG</span>
+      <h2>Langkah Belajar Saya</h2>
+      <p class="section-desc">Rekam jejak tahapan akademik dan praktis selama di bangku perkuliahan Teknik Informatika.
+      </p>
+    </div>
 
-    <div class="timeline">
-      <div class="timeline-item" data-reveal>
-        <small>SEMESTER AWAL</small>
-        <h3>Fondasi Logika &amp; Bahasa C</h3>
-        <p>Memulai perjalanan pemrograman dengan Bahasa C. Belajar logika dasar, algoritma, dan bagaimana komputer mengelola memori melalui pointer.</p>
+    <div class="retro-timeline">
+      <!-- Item 1 -->
+      <div class="timeline-node" data-reveal>
+        <div class="timeline-marker">01</div>
+        <div class="timeline-window">
+          <div class="window-header">
+            <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+                class="dot green"></span></div>
+            <span>stage_01.log</span>
+            <span class="badge-retro" style="background:var(--accent-yellow)">SEMESTER AWAL</span>
+          </div>
+          <div class="timeline-window-body">
+            <h3>Fondasi Logika &amp; Bahasa C</h3>
+            <p>Memulai perjalanan pemrograman dengan Bahasa C. Belajar logika dasar komputer, algoritma penyelesaian
+              masalah, serta manajemen alokasi memori melalui pointer.</p>
+          </div>
+        </div>
       </div>
-      <div class="timeline-item" data-reveal>
-        <small>SEMESTER LANJUTAN</small>
-        <h3>Pendekatan OOP dengan Python</h3>
-        <p>Beralih ke paradigma Berorientasi Objek. Mempelajari cara merancang kelas dan objek menggunakan Python untuk membuat kode yang lebih terstruktur.</p>
+
+      <!-- Item 2 -->
+      <div class="timeline-node" data-reveal>
+        <div class="timeline-marker">02</div>
+        <div class="timeline-window">
+          <div class="window-header">
+            <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+                class="dot green"></span></div>
+            <span>stage_02.log</span>
+            <span class="badge-retro" style="background:var(--accent-secondary); color:#fff">SEMESTER LANJUTAN</span>
+          </div>
+          <div class="timeline-window-body">
+            <h3>Pendekatan OOP dengan Python</h3>
+            <p>Beralih ke paradigma Berorientasi Objek. Mempelajari pemodelan kelas, pewarisan (*inheritance*), dan
+              modularitas menggunakan Python untuk menghasilkan kode yang bersih.</p>
+          </div>
+        </div>
       </div>
-      <div class="timeline-item" data-reveal>
-        <small>FASE WEB</small>
-        <h3>Pengembangan Aplikasi Berbasis Web</h3>
-        <p>Membangun aplikasi web dinamis menggunakan Native PHP dan MySQL. Mempelajari bagaimana server memproses data dan menampilkannya ke browser.</p>
+
+      <!-- Item 3 -->
+      <div class="timeline-node" data-reveal>
+        <div class="timeline-marker">03</div>
+        <div class="timeline-window">
+          <div class="window-header">
+            <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+                class="dot green"></span></div>
+            <span>stage_03.log</span>
+            <span class="badge-retro" style="background:var(--accent-purple); color:#fff">FASE WEB</span>
+          </div>
+          <div class="timeline-window-body">
+            <h3>Pengembangan Aplikasi Berbasis Web</h3>
+            <p>Membangun aplikasi dinamis menggunakan Native PHP dan basis data MySQL. Memahami siklus komunikasi
+              client-server, session login, dan manipulasi data CRUD.</p>
+          </div>
+        </div>
       </div>
-      <div class="timeline-item" data-reveal>
-        <small>SAAT INI</small>
-        <h3>Rekayasa Perangkat Lunak</h3>
-        <p>Fokus pada tahap pra-koding: menganalisis kebutuhan, merancang arsitektur sistem, dan membuat diagram UML sebelum aplikasi dibangun.</p>
+
+      <!-- Item 4 -->
+      <div class="timeline-node" data-reveal>
+        <div class="timeline-marker">04</div>
+        <div class="timeline-window">
+          <div class="window-header">
+            <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span
+                class="dot green"></span></div>
+            <span>stage_04.log</span>
+            <span class="badge-retro" style="background:var(--accent); color:#fff">SAAT INI</span>
+          </div>
+          <div class="timeline-window-body">
+            <h3>Rekayasa &amp; Desain Perangkat Lunak</h3>
+            <p>Mendalami fase pra-koding: elisitasi kebutuhan sistem, arsitektur perangkat lunak, dan pemodelan diagram
+              UML sebelum aplikasi diimplementasikan ke kode nyata.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ KONTAK ════════════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       KONTAK & SOCIAL MEDIA (7 PLATFORMS)
+  ══════════════════════════════════════════════════════════════════════════ -->
   <section id="kontak" class="container">
-    <div class="contact-box" data-reveal>
-      <span class="eyebrow">04 / Kontak</span>
-      <h2>Mari terhubung</h2>
-      <p class="section-desc" style="margin:0 auto">Punya pertanyaan tentang tugas, ingin berdiskusi soal coding, atau sekadar menyapa? Jangan ragu untuk menghubungi saya.</p>
-      <div class="contact-links">
-        <a class="btn" href="mailto:luthfiatthariqsunandar@gmail.com">✉️ Kirim Email</a>
-        <a class="btn outline" href="https://github.com/YutaKumozoka" target="_blank" rel="noopener">🐙 GitHub</a>
+    <div class="contact-container" data-reveal>
+      <div class="window-header">
+        <div class="window-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span>connect_terminal.exe</span>
+        <span class="badge-retro" style="background:var(--accent-green); color:#fff;">ACTIVE</span>
+      </div>
+
+      <div class="contact-inner">
+        <span class="eyebrow">05 // HUBUNGI &amp; JEJARING</span>
+        <h2>Mari Terhubung di Jagat Maya</h2>
+        <p class="section-desc" style="margin: 0 auto;">
+          Punya pertanyaan tentang tugas kuliah, ide kolaborasi proyek, diskusi seputar koding, atau sekadar ingin
+          berteman? Silakan sapa saya di platform berikut:
+        </p>
+
+        <!-- Social Media Grid -->
+        <div class="social-grid">
+          <!-- 1. GitHub -->
+          <a class="social-btn gh" href="https://github.com/YutaKumozoka" target="_blank" rel="noopener">
+            <span class="social-btn-icon">🐙</span>
+            <span>GitHub</span>
+          </a>
+
+          <!-- 2. Email -->
+          <a class="social-btn mail" href="mailto:luthfiatthariqsunandar@gmail.com">
+            <span class="social-btn-icon">✉️</span>
+            <span>Kirim Email</span>
+          </a>
+
+          <!-- 3. LinkedIn -->
+          <a class="social-btn li" href="https://www.linkedin.com/in/luthfi-atthariq-sunandar-54bb78445/"
+            target="_blank" rel="noopener">
+            <span class="social-btn-icon">💼</span>
+            <span>LinkedIn</span>
+          </a>
+
+          <!-- 4. Twitter / X -->
+          <a class="social-btn x" href="https://twitter.com/YutaKumozoka" target="_blank" rel="noopener">
+            <span class="social-btn-icon">🐦</span>
+            <span>Twitter / X</span>
+          </a>
+
+          <!-- 5. Instagram -->
+          <a class="social-btn ig" href="https://instagram.com/yutakumozoka" target="_blank" rel="noopener">
+            <span class="social-btn-icon">📸</span>
+            <span>Instagram</span>
+          </a>
+
+          <!-- 6. Twitch -->
+          <a class="social-btn twitch" href="https://twitch.tv/yutakumozoka" target="_blank" rel="noopener">
+            <span class="social-btn-icon">🟣</span>
+            <span>Twitch</span>
+          </a>
+
+          <!-- 7. YouTube -->
+          <a class="social-btn yt" href="https://youtube.com/@yutakumozoka" target="_blank" rel="noopener">
+            <span class="social-btn-icon">🔴</span>
+            <span>YouTube</span>
+          </a>
+        </div>
+
+        <p style="font-family:'Space Mono', monospace; font-size:0.8rem; color:var(--muted);">
+          * Klik salah satu tautan untuk langsung menuju profil resmi saya.
+        </p>
       </div>
     </div>
   </section>
 
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════════════════════ -->
   <footer>
-    <p>© <span id="tahun"></span> Luthfi Atthariq Sunandar · Tugas Analisis dan Desain PL</p>
-    <p style="margin-top:6px">
-      <a href="https://github.com/YutaKumozoka" target="_blank" rel="noopener">GitHub</a>
-      &nbsp;·&nbsp;
-      <a href="mailto:luthfiatthariqsunandar@gmail.com">Email</a>
-    </p>
+    <div class="container">
+      <p>© <span id="tahun"></span> Luthfi Atthariq Sunandar — NIM 230511104</p>
+      <p style="margin-top: 6px;">Tugas Praktik Mandiri · Analisis dan Desain Perangkat Lunak · Teknik Informatika UMC
+      </p>
+      <div>
+        <span class="footer-status">
+          <span style="color:#22c55e;">●</span> SYSTEM STATUS: OPERATIONAL
+        </span>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    // ── Tema ──────────────────────────────────────────────────────────────────
-    const themeBtn = document.getElementById('theme-btn');
-    const root = document.documentElement;
-    function setTheme(theme) {
-      root.setAttribute('data-theme', theme);
-      themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-      try { localStorage.setItem('tema', theme); } catch (e) {}
-    }
-    let saved = null;
-    try { saved = localStorage.getItem('tema'); } catch (e) {}
-    setTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-    themeBtn.addEventListener('click', () =>
-      setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
-
-    // ── Menu Mobile ───────────────────────────────────────────────────────────
-    const menuBtn  = document.getElementById('menu-btn');
-    const navLinks = document.getElementById('nav-links');
-    menuBtn.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      menuBtn.textContent = open ? '✕' : '☰';
-      menuBtn.setAttribute('aria-expanded', open);
-    });
-    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      menuBtn.textContent = '☰';
-    }));
-
-    // ── Filter ────────────────────────────────────────────────────────────────
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards      = document.querySelectorAll('.card');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        cards.forEach(card => {
-          card.hidden = filter !== 'semua' && card.dataset.category !== filter;
-        });
-      });
-    });
-
-    // ── Progress Bar Animasi ──────────────────────────────────────────────────
-    function animateBars(container) {
-      container.querySelectorAll('.bar span[data-level]').forEach(bar => {
-        bar.style.width = bar.dataset.level + '%';
-      });
-    }
-
-    // ── Scroll Reveal + Scrollspy ─────────────────────────────────────────────
-    if ('IntersectionObserver' in window) {
-      // Reveal animasi
-      const revealObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            animateBars(entry.target);
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('[data-reveal]').forEach(el => {
-        el.classList.add('reveal');
-        revealObserver.observe(el);
-      });
-
-      // Scrollspy nav aktif
-      const sections   = document.querySelectorAll('section[id]');
-      const navAnchors = document.querySelectorAll('.nav-links a');
-      const spyObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            navAnchors.forEach(a => a.classList.remove('active'));
-            const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-            if (active) active.classList.add('active');
-          }
-        });
-      }, { rootMargin: '-40% 0px -55% 0px' });
-      sections.forEach(s => spyObserver.observe(s));
-
-    } else {
-      // Fallback: langsung tampil semua
-      document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('visible'));
-      animateBars(document);
-    }
-
-    // ── Tahun Footer ──────────────────────────────────────────────────────────
-    document.getElementById('tahun').textContent = new Date().getFullYear();
-  </script>
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
 </body>
+
 </html>
