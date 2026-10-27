@@ -60,10 +60,35 @@ filterBtns.forEach(btn => {
 });
 
 // ══════════════════════════════════════════════════════════════════════════
-// 4. TABS FAVORIT (BOOKS, SONGS, TOOLS)
+// 4. TABS FAVORIT (ANIMES, SONGS, TOOLS) + DYNAMIC ACTION BUTTON
 // ══════════════════════════════════════════════════════════════════════════
 const favTabs = document.querySelectorAll('.fav-tab-btn');
 const favPanels = document.querySelectorAll('.fav-panel');
+const favActionBtn = document.getElementById('fav-action-btn');
+
+function updateFavActionBtn(tab) {
+  if (!favActionBtn || !tab) return;
+  const linkUrl = tab.dataset.linkUrl;
+  const linkText = tab.dataset.linkText;
+  const linkIcon = tab.dataset.linkIcon || '↗';
+
+  if (linkUrl) {
+    favActionBtn.href = linkUrl;
+    favActionBtn.style.display = 'inline-flex';
+    const iconSpan = favActionBtn.querySelector('.fav-btn-icon');
+    const textSpan = favActionBtn.querySelector('.fav-btn-text');
+    if (iconSpan) iconSpan.textContent = linkIcon;
+    if (textSpan) textSpan.textContent = linkText;
+  } else {
+    favActionBtn.style.display = 'none';
+  }
+}
+
+// Inisialisasi tombol aksi sesuai tab yang aktif saat pertama buka
+const initialActiveTab = document.querySelector('.fav-tab-btn.active');
+if (initialActiveTab) {
+  updateFavActionBtn(initialActiveTab);
+}
 
 favTabs.forEach(tab => {
   tab.addEventListener('click', () => {
@@ -74,6 +99,9 @@ favTabs.forEach(tab => {
     const targetId = 'tab-' + tab.dataset.tab;
     const panel = document.getElementById(targetId);
     if (panel) panel.classList.add('active');
+
+    // Update link dan teks tombol di samping kanan
+    updateFavActionBtn(tab);
   });
 });
 

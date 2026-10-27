@@ -370,15 +370,35 @@
     <div class="section-head" data-reveal>
       <span class="eyebrow">03 // INSPIRASI &amp; FAVORIT</span>
       <h2>Koleksi Favorit Saya</h2>
-      <p class="section-desc">Buku rujukan terbaik, musik penemani koding, dan perkakas teknologi yang saya gunakan
-        setiap hari.</p>
+      <p class="section-desc">Anime favorit pengisi waktu luang, musik penemani koding, dan perkakas teknologi yang saya
+        gunakan setiap hari.</p>
     </div>
 
-    <!-- Retro Tab Selector -->
-    <div class="favorites-tabs">
-      <button class="fav-tab-btn active" data-tab="books">📚 Favorite Animes</button>
-      <button class="fav-tab-btn" data-tab="songs">🎵 Favorite Songs</button>
-      <button class="fav-tab-btn" data-tab="tools">🛠️ Favorite Tools</button>
+    <!-- Retro Tab Selector & Dynamic External Link Button -->
+    <div class="favorites-nav-wrapper">
+      <div class="favorites-tabs">
+        <button class="fav-tab-btn active" data-tab="books" data-link-url="https://myanimelist.net/profile/YutaKumozoka"
+          data-link-text="MyAnimeList" data-link-icon="🎬">
+          📚 Favorite Animes
+        </button>
+        <button class="fav-tab-btn" data-tab="songs"
+          data-link-url="https://open.spotify.com/user/31vkxv7uvndtvcvmga5vcuaui73m?si=2ebfc5d06042449d"
+          data-link-text="Buka di Spotify" data-link-icon="🎧">
+          🎵 Favorite Songs
+        </button>
+        <button class="fav-tab-btn" data-tab="tools" data-link-url="https://github.com/YutaKumozoka"
+          data-link-text="Lihat GitHub" data-link-icon="🛠️">
+          🛠️ Favorite Tools
+        </button>
+      </div>
+
+      <!-- Tombol Dinamis di Samping Kanan Favorite Bar -->
+      <a id="fav-action-btn" class="fav-action-btn" href="https://myanimelist.net/profile/YutaKumozoka" target="_blank"
+        rel="noopener">
+        <span class="fav-btn-icon">🎬</span>
+        <span class="fav-btn-text">MyAnimeList</span>
+        <span class="fav-btn-arrow">↗</span>
+      </a>
     </div>
 
     <!-- TAB 1: FAVORITE BOOKS -->
