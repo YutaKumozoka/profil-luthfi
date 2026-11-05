@@ -54,7 +54,8 @@ filterBtns.forEach(btn => {
     btn.classList.add('active');
     const cat = btn.dataset.filter;
     skillCards.forEach(card => {
-      card.hidden = cat !== 'semua' && card.dataset.category !== cat;
+      const categories = card.dataset.category ? card.dataset.category.split(' ') : [];
+      card.hidden = cat !== 'semua' && !categories.includes(cat);
     });
   });
 });
