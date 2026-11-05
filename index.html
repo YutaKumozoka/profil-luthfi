@@ -36,9 +36,10 @@
         <a href="#beranda">00. Beranda</a>
         <a href="#tentang">01. Tentang</a>
         <a href="#pembelajaran">02. Skill</a>
-        <a href="#favorit">03. Favorit</a>
-        <a href="#perjalanan">04. Log</a>
-        <a href="#kontak">05. Sosial</a>
+        <a href="#proyek">03. Proyek</a>
+        <a href="#favorit">04. Favorit</a>
+        <a href="#perjalanan">05. Log</a>
+        <a href="#kontak">06. Sosial</a>
       </div>
 
       <div class="nav-actions">
@@ -70,8 +71,8 @@
           paradigma berorientasi objek, serta pengembangan sistem berbasis web dengan kode yang bersih dan terstruktur.
         </p>
         <div class="hero-btns">
-          <a href="#pembelajaran" class="btn">🚀 Jelajahi Skill</a>
-          <a href="#favorit" class="btn yellow">⭐ Buku &amp; Lagu Favorit</a>
+          <a href="#proyek" class="btn">📂 Portofolio Proyek</a>
+          <a href="#pembelajaran" class="btn yellow">🚀 Jelajahi Skill</a>
           <a href="#kontak" class="btn outline">💬 Hubungi Saya</a>
         </div>
       </div>
@@ -442,11 +443,184 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════════
-       FAVORIT (BOOKS, SONGS, TOOLS)
+       PORTOFOLIO PROYEK
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section id="proyek" class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">03 // PORTOFOLIO PROYEK</span>
+      <h2>Aplikasi yang Pernah Dibuat</h2>
+      <p class="section-desc">Koleksi sistem dan aplikasi berbasis web yang telah saya rancang dan kembangkan, mencakup sistem inventaris, logistik, pelayanan publik, hingga otomasi administrasi.</p>
+    </div>
+
+    <div class="projects-grid">
+      <!-- PROYEK 1: Aplikasi Gudang -->
+      <article class="project-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+          <span>gudang_app.exe</span>
+          <span class="badge-retro" style="background:var(--accent-yellow)">INVENTARIS</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <div class="project-icon-box">📦</div>
+            <span class="project-type-tag">WEB APPLICATION</span>
+          </div>
+          <h3>Aplikasi Gudang (Sistem Inventaris)</h3>
+          <p class="project-desc">Sistem informasi logistik pergudangan untuk mencatat alur masuk-keluar barang, pemantauan batas stok minimum, dan kontrol inventaris secara terpusat dan akurat.</p>
+          <ul class="project-features">
+            <li>Pencatatan transaksi barang masuk &amp; keluar</li>
+            <li>Notifikasi peringatan stok minimum barang</li>
+            <li>Laporan mutasi barang &amp; rekapitulasi inventaris</li>
+          </ul>
+          <div class="tag-list">
+            <span class="tag-retro">Native PHP</span>
+            <span class="tag-retro">MySQL</span>
+            <span class="tag-retro">HTML5/CSS3</span>
+            <span class="tag-retro">JavaScript</span>
+          </div>
+          <div class="project-footer">
+            <span class="project-status">Production Ready</span>
+            <span class="badge-retro" style="background:var(--surface-2); font-size:0.68rem;">CRUD SYSTEM</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROYEK 2: Aplikasi Pengiriman Barang -->
+      <article class="project-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+          <span>ekspedisi_track.exe</span>
+          <span class="badge-retro" style="background:var(--accent-secondary); color:#fff">LOGISTIK</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <div class="project-icon-box">🚚</div>
+            <span class="project-type-tag">TRACKING SYSTEM</span>
+          </div>
+          <h3>Aplikasi Pengiriman Barang</h3>
+          <p class="project-desc">Platform ekspedisi logistik untuk pembuatan nomor resi otomatis, pemantauan manifest kurir, dan tracking posisi pengiriman paket secara bertahap.</p>
+          <ul class="project-features">
+            <li>Generator nomor resi pelacakan paket otomatis</li>
+            <li>Manajemen manifest kurir &amp; checkpoint rute</li>
+            <li>Pelacakan status paket (Pending / Kirim / Diterima)</li>
+          </ul>
+          <div class="tag-list">
+            <span class="tag-retro">Native PHP</span>
+            <span class="tag-retro">MySQL</span>
+            <span class="tag-retro">CSS Grid</span>
+            <span class="tag-retro">Ajax / Fetch</span>
+          </div>
+          <div class="project-footer">
+            <span class="project-status">Production Ready</span>
+            <span class="badge-retro" style="background:var(--surface-2); font-size:0.68rem;">LOGISTICS</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROYEK 3: Pengaduan Masyarakat -->
+      <article class="project-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+          <span>e_pengaduan.exe</span>
+          <span class="badge-retro" style="background:var(--accent-purple); color:#fff">CIVIC TECH</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <div class="project-icon-box">📢</div>
+            <span class="project-type-tag">E-GOVERNMENT</span>
+          </div>
+          <h3>Aplikasi Pengaduan Masyarakat</h3>
+          <p class="project-desc">Aplikasi layanan aspirasi publik warga untuk melaporkan keluhan sarana umum secara digital disertai bukti foto, disposisi ke petugas, dan transparansi proses penanganan.</p>
+          <ul class="project-features">
+            <li>Formulir aduan warga + upload foto bukti laporan</li>
+            <li>Dashboard admin untuk verifikasi &amp; respon petugas</li>
+            <li>Tracking status penanganan (Menunggu / Proses / Selesai)</li>
+          </ul>
+          <div class="tag-list">
+            <span class="tag-retro">PHP</span>
+            <span class="tag-retro">MySQL</span>
+            <span class="tag-retro">Auth Session</span>
+            <span class="tag-retro">Responsive UI</span>
+          </div>
+          <div class="project-footer">
+            <span class="project-status">Public Service</span>
+            <span class="badge-retro" style="background:var(--surface-2); font-size:0.68rem;">TICKETING</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROYEK 4: Aplikasi Slip Gaji (SIPG) -->
+      <article class="project-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+          <span>sipg_payroll.exe</span>
+          <span class="badge-retro" style="background:var(--accent); color:#fff">FINANCE</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <div class="project-icon-box">💵</div>
+            <span class="project-type-tag">PAYROLL SYSTEM</span>
+          </div>
+          <h3>Aplikasi Slip Gaji (SIPG)</h3>
+          <p class="project-desc">Sistem Informasi Penggajian (SIPG) untuk mengautomasi kalkulasi gaji bersih karyawan, tunjangan jabatan, potongan absensi/pajak, serta cetak slip gaji format resmi.</p>
+          <ul class="project-features">
+            <li>Perhitungan otomatis gaji pokok &amp; tunjangan dinamis</li>
+            <li>Rekapitulasi absensi &amp; potongan iuran karyawan</li>
+            <li>Export &amp; cetak lembaran slip gaji (PDF Printable)</li>
+          </ul>
+          <div class="tag-list">
+            <span class="tag-retro">Native PHP</span>
+            <span class="tag-retro">MySQL</span>
+            <span class="tag-retro">PDF Engine</span>
+            <span class="tag-retro">Bootstrap</span>
+          </div>
+          <div class="project-footer">
+            <span class="project-status">Internal Office</span>
+            <span class="badge-retro" style="background:var(--surface-2); font-size:0.68rem;">PAYROLL</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROYEK 5: Otomasi Penomoran Surat -->
+      <article class="project-card" data-reveal>
+        <div class="window-header">
+          <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+          <span>auto_nomor_surat.exe</span>
+          <span class="badge-retro" style="background:var(--accent-yellow)">TATA USAHA</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <div class="project-icon-box">✉️</div>
+            <span class="project-type-tag">AUTOMATION</span>
+          </div>
+          <h3>Aplikasi Otomasi Penomoran Surat</h3>
+          <p class="project-desc">Aplikasi tata persuratan untuk menstandarisasi dan mengautomasi pembuatan nomor registrasi surat resmi berdasarkan kode departemen guna mencegah nomor ganda.</p>
+          <ul class="project-features">
+            <li>Generator nomor surat terstruktur otomatis</li>
+            <li>Buku agenda digital arsip surat masuk &amp; surat keluar</li>
+            <li>Pencarian cepat riwayat arsip &amp; validasi nomor surat</li>
+          </ul>
+          <div class="tag-list">
+            <span class="tag-retro">PHP</span>
+            <span class="tag-retro">MySQL</span>
+            <span class="tag-retro">JavaScript</span>
+            <span class="tag-retro">CSS Modern</span>
+          </div>
+          <div class="project-footer">
+            <span class="project-status">Administrative</span>
+            <span class="badge-retro" style="background:var(--surface-2); font-size:0.68rem;">AUTO REGISTRY</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       FAVORIT (ANIMES, SONGS, TOOLS)
   ══════════════════════════════════════════════════════════════════════════ -->
   <section id="favorit" class="container">
     <div class="section-head" data-reveal>
-      <span class="eyebrow">03 // INSPIRASI &amp; FAVORIT</span>
+      <span class="eyebrow">04 // INSPIRASI &amp; FAVORIT</span>
       <h2>Koleksi Favorit Saya</h2>
       <p class="section-desc">Anime favorit pengisi waktu luang, musik penemani koding, dan perkakas teknologi yang saya
         gunakan setiap hari.</p>
@@ -724,7 +898,7 @@
   ══════════════════════════════════════════════════════════════════════════ -->
   <section id="perjalanan" class="container">
     <div class="section-head" data-reveal>
-      <span class="eyebrow">04 // SYSTEM LOG</span>
+      <span class="eyebrow">05 // SYSTEM LOG</span>
       <h2>Langkah Belajar Saya</h2>
       <p class="section-desc">Rekam jejak tahapan akademik dan praktis selama di bangku perkuliahan Teknik Informatika.
       </p>
@@ -821,7 +995,7 @@
       </div>
 
       <div class="contact-inner">
-        <span class="eyebrow">05 // HUBUNGI &amp; JEJARING</span>
+        <span class="eyebrow">06 // HUBUNGI &amp; JEJARING</span>
         <h2>Mari Terhubung di Jagat Maya</h2>
         <p class="section-desc" style="margin: 0 auto;">
           Punya pertanyaan tentang tugas kuliah, ide kolaborasi proyek, diskusi seputar koding, atau sekadar ingin
