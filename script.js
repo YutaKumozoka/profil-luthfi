@@ -408,10 +408,17 @@ function renderDocCard(doc, isPrepend = false) {
 
   const delBtn = article.querySelector('.btn-delete-doc');
   if (delBtn) {
-    delBtn.addEventListener('click', () => {
-      if (confirm(`Hapus berkas "${doc.title}" dari tampilan ini?`)) {
-        deleteCloudDoc(doc.id);
+    delBtn.addEventListener('click', async () => {
+      const pin = window.prompt(`Masukkan PIN Admin untuk menghapus "${doc.title}":`);
+      if (pin === null) return; // Pengguna menekan tombol Batal
+
+      const pinHash = await hashSHA256(pin.trim());
+      if (pinHash !== ADMIN_PIN_HASH) {
+        alert('❌ PIN Keamanan salah! Akses hapus hanya diizinkan untuk pemilik portofolio.');
+        return;
       }
+
+      deleteCloudDoc(doc.id);
     });
   }
 
