@@ -163,8 +163,8 @@ if (tahunEl) tahunEl.textContent = new Date().getFullYear();
 const CLOUDINARY_CLOUD_NAME = 'jdiy8afa';
 const CLOUDINARY_UPLOAD_PRESET = 'tugas_preset';
 
-// Hash SHA-256 untuk PIN Keamanan (Aman: tidak mengekspos kata sandi asli di repositori publik)
-const ADMIN_PIN_HASH = '21dc395af9b057b507f1167f5a52e0bc5ad17cdd67fd695df5ce54a853705513';
+// Hash untuk PIN Keamanan
+const ADMIN_PIN_HASH = '558977866fb61c13981ed364948bf42ecc37de8c331220769c6392b8f599fee5';
 
 async function hashSHA256(str) {
   const encoder = new TextEncoder();
