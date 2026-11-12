@@ -1044,6 +1044,41 @@ h2 {
   gap: 12px;
 }
 
+/* Empty State untuk Dokumen */
+.docs-empty-state {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 42px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.docs-empty-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.docs-empty-state h4 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.docs-empty-state p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  max-width: 440px;
+  line-height: 1.6;
+  font-family: 'Space Mono', monospace;
+}
+
 /* Modal Overlay & Retro Window */
 .retro-modal-backdrop {
   position: fixed;

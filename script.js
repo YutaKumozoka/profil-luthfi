@@ -243,6 +243,11 @@ function updateTugasCounter() {
   if (!tugasCounterText || !docsGrid) return;
   const count = docsGrid.querySelectorAll('.doc-card').length;
   tugasCounterText.innerHTML = `Menampilkan <strong>${count}</strong> Berkas Dokumen`;
+
+  const emptyState = document.getElementById('docs-empty-state');
+  if (emptyState) {
+    emptyState.style.display = count === 0 ? 'flex' : 'none';
+  }
 }
 
 // Manajemen Modal
