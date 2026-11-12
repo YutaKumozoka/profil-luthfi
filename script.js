@@ -162,7 +162,17 @@ if (tahunEl) tahunEl.textContent = new Date().getFullYear();
 // ══════════════════════════════════════════════════════════════════════════
 const CLOUDINARY_CLOUD_NAME = 'jdiy8afa';
 const CLOUDINARY_UPLOAD_PRESET = 'tugas_preset';
-const ADMIN_PIN = '230511104'; // NIM Luthfi Atthariq Sunandar
+
+// Hash SHA-256 untuk PIN Keamanan (Aman: tidak mengekspos kata sandi asli di repositori publik)
+const ADMIN_PIN_HASH = '21dc395af9b057b507f1167f5a52e0bc5ad17cdd67fd695df5ce54a853705513';
+
+async function hashSHA256(str) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
 const uploadModal = document.getElementById('upload-modal');
 const btnOpenUpload = document.getElementById('btn-open-upload');
@@ -448,12 +458,14 @@ function loadCloudDocs() {
 
 // Submit Form Upload ke Cloudinary
 if (uploadForm) {
-  uploadForm.addEventListener('submit', (e) => {
+  uploadForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const pin = (uploadPin.value || '').trim();
-    if (pin !== ADMIN_PIN) {
-      showAlert('❌ PIN Keamanan salah! Hanya pemilik (NIM: 230511104) yang diizinkan mengunggah berkas.', 'error');
+    const pinHash = await hashSHA256(pin);
+
+    if (pinHash !== ADMIN_PIN_HASH) {
+      showAlert('❌ PIN Keamanan salah! Akses unggah hanya untuk pemilik portofolio.', 'error');
       uploadPin.focus();
       return;
     }
