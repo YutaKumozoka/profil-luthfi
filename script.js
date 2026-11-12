@@ -164,7 +164,7 @@ const CLOUDINARY_CLOUD_NAME = 'jdiy8afa';
 const CLOUDINARY_UPLOAD_PRESET = 'tugas_preset';
 
 // Hash untuk PIN Keamanan
-const ADMIN_PIN_HASH = '558977866fb61c13981ed364948bf42ecc37de8c331220769c6392b8f599fee5';
+const ADMIN_PIN_HASH = 'fec8760036e94e745fd800b56df087acdb760d9a5c7d5362a76b675dfe03dc30';
 
 async function hashSHA256(str) {
   const encoder = new TextEncoder();
@@ -197,6 +197,16 @@ const modalAlert = document.getElementById('modal-alert');
 const btnSubmitUpload = document.getElementById('btn-submit-upload');
 const docsGrid = document.getElementById('docs-grid');
 const tugasCounterText = document.getElementById('tugas-counter-text');
+
+// Modal Konfirmasi Hapus Berkas
+const deleteModal = document.getElementById('delete-modal');
+const btnCloseDeleteModal = document.getElementById('btn-close-delete-modal');
+const btnCancelDelete = document.getElementById('btn-cancel-delete');
+const deleteForm = document.getElementById('delete-form');
+const deletePin = document.getElementById('delete-pin');
+const deleteTargetFilename = document.getElementById('delete-target-filename');
+const deleteModalAlert = document.getElementById('delete-modal-alert');
+let pendingDeleteDocId = null;
 
 // Helper Sanitasi HTML & Format
 function escapeHTML(str) {
@@ -302,6 +312,52 @@ if (btnOpenUpload) btnOpenUpload.addEventListener('click', openModal);
 if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
 if (btnCancelUpload) btnCancelUpload.addEventListener('click', closeModal);
 
+// Manajemen Modal Hapus Berkas
+function showDeleteAlert(msg, type) {
+  if (!deleteModalAlert) return;
+  if (!msg) {
+    deleteModalAlert.style.display = 'none';
+    deleteModalAlert.className = '';
+    deleteModalAlert.textContent = '';
+    return;
+  }
+  deleteModalAlert.textContent = msg;
+  deleteModalAlert.className = `modal-alert ${type}`;
+  deleteModalAlert.style.display = 'flex';
+}
+
+function openDeleteModal(doc) {
+  if (!deleteModal) return;
+  pendingDeleteDocId = doc.id;
+  if (deleteTargetFilename) {
+    deleteTargetFilename.textContent = `Hapus "${doc.title}" dari arsip dokumen?`;
+  }
+  if (deletePin) deletePin.value = '';
+  showDeleteAlert('', '');
+  deleteModal.classList.add('open');
+  deleteModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  if (deletePin) deletePin.focus();
+}
+
+function closeDeleteModal() {
+  if (!deleteModal) return;
+  deleteModal.classList.remove('open');
+  deleteModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  pendingDeleteDocId = null;
+  showDeleteAlert('', '');
+}
+
+if (btnCloseDeleteModal) btnCloseDeleteModal.addEventListener('click', closeDeleteModal);
+if (btnCancelDelete) btnCancelDelete.addEventListener('click', closeDeleteModal);
+
+if (deleteModal) {
+  deleteModal.addEventListener('click', (e) => {
+    if (e.target === deleteModal) closeDeleteModal();
+  });
+}
+
 if (uploadModal) {
   uploadModal.addEventListener('click', (e) => {
     if (e.target === uploadModal) closeModal();
@@ -309,8 +365,9 @@ if (uploadModal) {
 }
 
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && uploadModal && uploadModal.classList.contains('open')) {
-    closeModal();
+  if (e.key === 'Escape') {
+    if (uploadModal && uploadModal.classList.contains('open')) closeModal();
+    if (deleteModal && deleteModal.classList.contains('open')) closeDeleteModal();
   }
 });
 
@@ -408,17 +465,8 @@ function renderDocCard(doc, isPrepend = false) {
 
   const delBtn = article.querySelector('.btn-delete-doc');
   if (delBtn) {
-    delBtn.addEventListener('click', async () => {
-      const pin = window.prompt(`Masukkan PIN Admin untuk menghapus "${doc.title}":`);
-      if (pin === null) return; // Pengguna menekan tombol Batal
-
-      const pinHash = await hashSHA256(pin.trim());
-      if (pinHash !== ADMIN_PIN_HASH) {
-        alert('❌ PIN Keamanan salah! Akses hapus hanya diizinkan untuk pemilik portofolio.');
-        return;
-      }
-
-      deleteCloudDoc(doc.id);
+    delBtn.addEventListener('click', () => {
+      openDeleteModal(doc);
     });
   }
 
@@ -569,6 +617,30 @@ if (uploadForm) {
     };
 
     xhr.send(formData);
+  });
+}
+
+// Submit Form Hapus Berkas (Verifikasi SHA-256 PIN)
+if (deleteForm) {
+  deleteForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!pendingDeleteDocId) return;
+
+    const pin = (deletePin.value || '').trim();
+    const pinHash = await hashSHA256(pin);
+
+    if (pinHash !== ADMIN_PIN_HASH) {
+      showDeleteAlert('❌ PIN Keamanan salah! Akses hapus hanya diizinkan untuk pemilik.', 'error');
+      if (deletePin) deletePin.focus();
+      return;
+    }
+
+    deleteCloudDoc(pendingDeleteDocId);
+    showDeleteAlert('✅ Berkas berhasil dihapus!', 'success');
+
+    setTimeout(() => {
+      closeDeleteModal();
+    }, 800);
   });
 }
 

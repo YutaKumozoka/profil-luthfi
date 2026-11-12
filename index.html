@@ -18,7 +18,7 @@
     rel="stylesheet">
 
   <!-- External Stylesheet (dengan cache-buster version) -->
-  <link rel="stylesheet" href="style.css?v=2.8">
+  <link rel="stylesheet" href="style.css?v=2.9">
 </head>
 
 <body>
@@ -1201,8 +1201,54 @@
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       MODAL: RETRO DELETE CONFIRMATION
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <div class="retro-modal-backdrop" id="delete-modal" aria-hidden="true">
+    <div class="retro-modal" role="dialog" aria-labelledby="modal-delete-title" style="max-width: 480px;">
+      <div class="retro-modal-header">
+        <div class="retro-modal-title" id="modal-delete-title">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span>delete_guard.exe</span>
+          <span class="badge-retro" style="background:var(--accent); color:#fff; font-size:0.65rem;">SECURITY</span>
+        </div>
+        <button class="retro-modal-close" id="btn-close-delete-modal" type="button" aria-label="Tutup Modal">✕</button>
+      </div>
+
+      <form class="retro-modal-body" id="delete-form">
+        <div style="display:flex; align-items:center; gap:14px; background:rgba(255, 95, 86, 0.08); border:1.5px solid var(--accent); border-radius:var(--radius-sm); padding:14px;">
+          <span style="font-size:1.8rem; line-height:1;">⚠️</span>
+          <div>
+            <h4 style="margin:0 0 4px; font-size:0.95rem; font-weight:800;">Konfirmasi Hapus Berkas</h4>
+            <p style="margin:0; font-size:0.8rem; color:var(--muted); font-family:'Space Mono', monospace;" id="delete-target-filename">Apakah kamu yakin ingin menghapus berkas ini?</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="delete-pin">
+            <span>🔑 Masukkan PIN Admin</span>
+            <small>*Hanya pemilik yang dapat menghapus</small>
+          </label>
+          <input type="password" id="delete-pin" class="form-control" placeholder="Masukkan PIN Keamanan" required autocomplete="off">
+        </div>
+
+        <!-- Alert error / sukses saat hapus -->
+        <div id="delete-modal-alert" style="display:none;"></div>
+
+        <div class="retro-modal-actions">
+          <button type="button" class="btn outline" id="btn-cancel-delete">Batal</button>
+          <button type="submit" class="btn" id="btn-confirm-delete" style="background:var(--accent); color:#fff;">🗑️ Hapus Sekarang</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- External JavaScript (dengan cache-buster version) -->
-  <script src="script.js?v=2.8"></script>
+  <script src="script.js?v=2.9"></script>
 </body>
 
 </html>
