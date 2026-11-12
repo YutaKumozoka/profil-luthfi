@@ -154,4 +154,400 @@ if ('IntersectionObserver' in window) {
 // ══════════════════════════════════════════════════════════════════════════
 // 6. TAHUN COPYRIGHT DINAMIS
 // ══════════════════════════════════════════════════════════════════════════
-document.getElementById('tahun').textContent = new Date().getFullYear();
+const tahunEl = document.getElementById('tahun');
+if (tahunEl) tahunEl.textContent = new Date().getFullYear();
+
+// ══════════════════════════════════════════════════════════════════════════
+// 7. CLOUDINARY UPLOADER & ARSIP TUGAS DINAMIS
+// ══════════════════════════════════════════════════════════════════════════
+const CLOUDINARY_CLOUD_NAME = 'jdiy8afa';
+const CLOUDINARY_UPLOAD_PRESET = 'tugas_preset';
+const ADMIN_PIN = '230511104'; // NIM Luthfi Atthariq Sunandar
+
+const uploadModal = document.getElementById('upload-modal');
+const btnOpenUpload = document.getElementById('btn-open-upload');
+const btnCloseModal = document.getElementById('btn-close-modal');
+const btnCancelUpload = document.getElementById('btn-cancel-upload');
+const uploadForm = document.getElementById('upload-form');
+const uploadPin = document.getElementById('upload-pin');
+const uploadFileInput = document.getElementById('upload-file-input');
+const retroDropzone = document.getElementById('retro-dropzone');
+const dropzoneFileDisplay = document.getElementById('dropzone-file-display');
+const dropzoneFilename = document.getElementById('dropzone-filename');
+const dropzoneFilesize = document.getElementById('dropzone-filesize');
+const uploadTitle = document.getElementById('upload-title');
+const uploadCourse = document.getElementById('upload-course');
+const uploadCategory = document.getElementById('upload-category');
+const uploadDesc = document.getElementById('upload-desc');
+const uploadProgressWrapper = document.getElementById('upload-progress-wrapper');
+const uploadProgressFill = document.getElementById('upload-progress-fill');
+const uploadPercent = document.getElementById('upload-percent');
+const uploadStatusText = document.getElementById('upload-status-text');
+const modalAlert = document.getElementById('modal-alert');
+const btnSubmitUpload = document.getElementById('btn-submit-upload');
+const docsGrid = document.getElementById('docs-grid');
+const tugasCounterText = document.getElementById('tugas-counter-text');
+
+// Helper Sanitasi HTML & Format
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  }[tag] || tag));
+}
+
+function formatBytes(bytes) {
+  if (!bytes || bytes <= 0) return '0 KB';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return '~' + (bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i];
+}
+
+function getFileIcon(ext) {
+  const e = (ext || '').toLowerCase();
+  if (['pdf'].includes(e)) return '📑';
+  if (['zip', 'rar', '7z', 'tar', 'gz'].includes(e)) return '📦';
+  if (['doc', 'docx', 'txt', 'rtf'].includes(e)) return '📄';
+  if (['ppt', 'pptx'].includes(e)) return '📊';
+  if (['xls', 'xlsx', 'csv'].includes(e)) return '📈';
+  if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(e)) return '🖼️';
+  if (['js', 'py', 'php', 'html', 'css', 'ts', 'java', 'c', 'cpp'].includes(e)) return '💻';
+  return '📁';
+}
+
+function getCategoryBadgeStyle(cat) {
+  switch (cat) {
+    case 'SEMESTER 5':
+      return 'background:var(--accent-secondary); color:#fff;';
+    case 'SEMESTER 4':
+      return 'background:#3b82f6; color:#fff;';
+    case 'DIAGRAM':
+      return 'background:var(--accent-purple); color:#fff;';
+    case 'SOURCE CODE':
+      return 'background:var(--accent-green); color:#fff;';
+    case 'TUGAS BESAR':
+      return 'background:var(--accent); color:#fff;';
+    case 'PRAKTIKUM':
+      return 'background:var(--accent-yellow); color:#1a1a1e;';
+    default:
+      return 'background:var(--accent-yellow); color:#1a1a1e;';
+  }
+}
+
+function updateTugasCounter() {
+  if (!tugasCounterText || !docsGrid) return;
+  const count = docsGrid.querySelectorAll('.doc-card').length;
+  tugasCounterText.innerHTML = `Menampilkan <strong>${count}</strong> Berkas Dokumen`;
+}
+
+// Manajemen Modal
+function openModal() {
+  if (!uploadModal) return;
+  uploadModal.classList.add('open');
+  uploadModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  if (uploadPin) uploadPin.focus();
+}
+
+function closeModal() {
+  if (!uploadModal) return;
+  uploadModal.classList.remove('open');
+  uploadModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function resetForm() {
+  if (uploadForm) uploadForm.reset();
+  if (dropzoneFileDisplay) dropzoneFileDisplay.style.display = 'none';
+  if (uploadProgressWrapper) uploadProgressWrapper.style.display = 'none';
+  if (uploadProgressFill) uploadProgressFill.style.width = '0%';
+  if (uploadPercent) uploadPercent.textContent = '0%';
+  showAlert('', '');
+}
+
+function showAlert(msg, type) {
+  if (!modalAlert) return;
+  if (!msg) {
+    modalAlert.style.display = 'none';
+    modalAlert.className = '';
+    modalAlert.textContent = '';
+    return;
+  }
+  modalAlert.textContent = msg;
+  modalAlert.className = `modal-alert ${type}`;
+  modalAlert.style.display = 'flex';
+}
+
+if (btnOpenUpload) btnOpenUpload.addEventListener('click', openModal);
+if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+if (btnCancelUpload) btnCancelUpload.addEventListener('click', closeModal);
+
+if (uploadModal) {
+  uploadModal.addEventListener('click', (e) => {
+    if (e.target === uploadModal) closeModal();
+  });
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && uploadModal && uploadModal.classList.contains('open')) {
+    closeModal();
+  }
+});
+
+// Drag & Drop File Picker
+function handleFileSelected(file) {
+  if (!file) return;
+  if (dropzoneFileDisplay && dropzoneFilename && dropzoneFilesize) {
+    dropzoneFileDisplay.style.display = 'flex';
+    const ext = file.name.split('.').pop() || '';
+    dropzoneFilename.textContent = `${getFileIcon(ext)} ${file.name}`;
+    dropzoneFilesize.textContent = formatBytes(file.size);
+  }
+
+  if (uploadTitle && !uploadTitle.value.trim()) {
+    const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
+    uploadTitle.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+  }
+}
+
+if (retroDropzone && uploadFileInput) {
+  retroDropzone.addEventListener('click', () => uploadFileInput.click());
+  retroDropzone.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      uploadFileInput.click();
+    }
+  });
+
+  ['dragenter', 'dragover'].forEach(name => {
+    retroDropzone.addEventListener(name, (e) => {
+      e.preventDefault();
+      retroDropzone.classList.add('dragover');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(name => {
+    retroDropzone.addEventListener(name, (e) => {
+      e.preventDefault();
+      retroDropzone.classList.remove('dragover');
+    });
+  });
+
+  retroDropzone.addEventListener('drop', (e) => {
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+      uploadFileInput.files = e.dataTransfer.files;
+      handleFileSelected(e.dataTransfer.files[0]);
+    }
+  });
+
+  uploadFileInput.addEventListener('change', () => {
+    if (uploadFileInput.files && uploadFileInput.files[0]) {
+      handleFileSelected(uploadFileInput.files[0]);
+    }
+  });
+}
+
+// Render Card Dokumen ke Grid
+function renderDocCard(doc, isPrepend = false) {
+  if (!docsGrid) return;
+  const article = document.createElement('article');
+  article.className = 'doc-card reveal visible';
+  article.dataset.docId = doc.id;
+
+  const icon = getFileIcon(doc.format);
+  const badgeStyle = getCategoryBadgeStyle(doc.category);
+  const displayFormat = (doc.format || 'FILE').toUpperCase();
+
+  article.innerHTML = `
+    <div class="window-header">
+      <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+      <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:180px;">${escapeHTML(doc.filename)}</span>
+      <span class="badge-retro" style="background:var(--accent-yellow); font-size:0.65rem;">CLOUD</span>
+    </div>
+    <div class="doc-body">
+      <div class="doc-top">
+        <div class="doc-icon-box">${icon}</div>
+        <div class="doc-top-right">
+          <span class="badge-retro" style="${badgeStyle}">${escapeHTML(doc.category)}</span>
+          <button type="button" class="btn-delete-doc" data-delete-id="${doc.id}" title="Hapus dari daftar">🗑️</button>
+        </div>
+      </div>
+      <h3>${escapeHTML(doc.title)}</h3>
+      <span class="doc-course">Mata Kuliah: ${escapeHTML(doc.course)}</span>
+      <p class="doc-desc">${escapeHTML(doc.desc || 'Berkas tugas kuliah terunggah aman di Cloudinary.')}</p>
+      <div class="doc-meta-box">
+        <div class="doc-meta-item"><span>${icon}</span><span>Format: <strong>${displayFormat}</strong></span></div>
+        <div class="doc-meta-item"><span>💾</span><span>Ukuran: <strong>${escapeHTML(doc.size)}</strong></span></div>
+      </div>
+      <div class="doc-actions">
+        <a class="btn outline" href="${escapeHTML(doc.url)}" target="_blank" rel="noopener">Preview ↗</a>
+        <a class="btn" href="${escapeHTML(doc.url)}" download="${escapeHTML(doc.filename)}" target="_blank" rel="noopener">Unduh 📥</a>
+      </div>
+    </div>
+  `;
+
+  const delBtn = article.querySelector('.btn-delete-doc');
+  if (delBtn) {
+    delBtn.addEventListener('click', () => {
+      if (confirm(`Hapus berkas "${doc.title}" dari tampilan ini?`)) {
+        deleteCloudDoc(doc.id);
+      }
+    });
+  }
+
+  if (isPrepend) {
+    docsGrid.prepend(article);
+  } else {
+    docsGrid.appendChild(article);
+  }
+}
+
+// LocalStorage Persistence
+function getCloudDocs() {
+  try {
+    const raw = localStorage.getItem('user_cloud_docs');
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveCloudDoc(doc) {
+  const list = getCloudDocs();
+  list.unshift(doc);
+  try {
+    localStorage.setItem('user_cloud_docs', JSON.stringify(list));
+  } catch (e) {}
+}
+
+function deleteCloudDoc(id) {
+  const list = getCloudDocs().filter(item => item.id !== id);
+  try {
+    localStorage.setItem('user_cloud_docs', JSON.stringify(list));
+  } catch (e) {}
+  const card = document.querySelector(`.doc-card[data-doc-id="${id}"]`);
+  if (card) card.remove();
+  updateTugasCounter();
+}
+
+function loadCloudDocs() {
+  const list = getCloudDocs();
+  list.forEach(doc => renderDocCard(doc, true));
+  updateTugasCounter();
+}
+
+// Submit Form Upload ke Cloudinary
+if (uploadForm) {
+  uploadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const pin = (uploadPin.value || '').trim();
+    if (pin !== ADMIN_PIN) {
+      showAlert('❌ PIN Keamanan salah! Hanya pemilik (NIM: 230511104) yang diizinkan mengunggah berkas.', 'error');
+      uploadPin.focus();
+      return;
+    }
+
+    const file = uploadFileInput.files ? uploadFileInput.files[0] : null;
+    if (!file) {
+      showAlert('❌ Pilih berkas yang ingin diunggah terlebih dahulu!', 'error');
+      return;
+    }
+
+    if (file.size > 25 * 1024 * 1024) {
+      showAlert('❌ Ukuran berkas melebihi batas 25 MB.', 'error');
+      return;
+    }
+
+    showAlert('', '');
+
+    btnSubmitUpload.disabled = true;
+    btnSubmitUpload.textContent = '⏳ Mengunggah...';
+    uploadProgressWrapper.style.display = 'block';
+    uploadProgressFill.style.width = '0%';
+    uploadPercent.textContent = '0%';
+    uploadStatusText.textContent = 'Menghubungkan ke server Cloudinary...';
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`);
+
+    xhr.upload.onprogress = (ev) => {
+      if (ev.lengthComputable) {
+        const pct = Math.round((ev.loaded / ev.total) * 100);
+        uploadProgressFill.style.width = pct + '%';
+        uploadPercent.textContent = pct + '%';
+        uploadStatusText.textContent = pct < 100 
+          ? `Mengunggah berkas (${pct}%)...` 
+          : 'Memproses berkas di cloud...';
+      }
+    };
+
+    xhr.onload = () => {
+      btnSubmitUpload.disabled = false;
+      btnSubmitUpload.textContent = '🚀 Mulai Unggah';
+
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          const ext = (res.format || file.name.split('.').pop() || 'file').toLowerCase();
+          
+          const newDoc = {
+            id: 'cloud_' + Date.now(),
+            title: uploadTitle.value.trim() || file.name,
+            course: uploadCourse.value.trim() || 'Umum',
+            category: uploadCategory.value || 'DOKUMEN',
+            desc: uploadDesc.value.trim() || 'Berkas tugas kuliah terunggah aman di Cloudinary.',
+            format: ext,
+            size: formatBytes(res.bytes || file.size),
+            url: res.secure_url,
+            filename: file.name,
+            uploadedAt: new Date().toISOString()
+          };
+
+          saveCloudDoc(newDoc);
+          renderDocCard(newDoc, true);
+          updateTugasCounter();
+
+          showAlert('🎉 Berhasil! Berkas telah tersimpan di Cloudinary dan muncul di daftar tugas.', 'success');
+
+          setTimeout(() => {
+            closeModal();
+            resetForm();
+          }, 1600);
+        } catch (err) {
+          showAlert('❌ Gagal memproses respons dari Cloudinary: ' + err.message, 'error');
+        }
+      } else {
+        let errMsg = 'Gagal mengunggah berkas.';
+        try {
+          const errObj = JSON.parse(xhr.responseText);
+          if (errObj && errObj.error && errObj.error.message) {
+            errMsg += ' ' + errObj.error.message;
+          }
+        } catch(e) {}
+        showAlert('❌ ' + errMsg, 'error');
+      }
+    };
+
+    xhr.onerror = () => {
+      btnSubmitUpload.disabled = false;
+      btnSubmitUpload.textContent = '🚀 Mulai Unggah';
+      showAlert('❌ Terjadi kesalahan jaringan saat mengunggah.', 'error');
+    };
+
+    xhr.send(formData);
+  });
+}
+
+// Inisialisasi Berkas Cloud yang tersimpan
+loadCloudDocs();
+

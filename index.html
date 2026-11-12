@@ -18,7 +18,7 @@
     rel="stylesheet">
 
   <!-- External Stylesheet (dengan cache-buster version) -->
-  <link rel="stylesheet" href="style.css?v=2.4">
+  <link rel="stylesheet" href="style.css?v=2.5">
 </head>
 
 <body>
@@ -616,7 +616,20 @@
       <p class="section-desc">Dokumentasi laporan tugas, diagram perancangan, dan berkas praktikum perkuliahan yang dapat dilihat langsung atau diunduh secara bebas.</p>
     </div>
 
-    <div class="docs-grid">
+    <!-- Toolbar Berkas & Tombol Unggah Cloud -->
+    <div class="tugas-toolbar" data-reveal>
+      <div class="tugas-counter">
+        <span>📂</span>
+        <span id="tugas-counter-text">Menampilkan <strong>3</strong> Berkas Dokumen</span>
+      </div>
+      <div class="tugas-toolbar-actions">
+        <button id="btn-open-upload" class="btn yellow" type="button">
+          ☁️ Unggah Berkas Cloud
+        </button>
+      </div>
+    </div>
+
+    <div class="docs-grid" id="docs-grid">
       <!-- BERKAS 1: Laporan ADPL -->
       <article class="doc-card" data-reveal>
         <div class="window-header">
@@ -1172,8 +1185,108 @@
     </div>
   </footer>
 
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       MODAL: RETRO CLOUDINARY FILE UPLOADER
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <div class="retro-modal-backdrop" id="upload-modal" aria-hidden="true">
+    <div class="retro-modal" role="dialog" aria-labelledby="modal-uploader-title">
+      <div class="retro-modal-header">
+        <div class="retro-modal-title" id="modal-uploader-title">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span>cloud_uploader.exe</span>
+          <span class="badge-retro" style="background:var(--accent-yellow); font-size:0.65rem;">CLOUDINARY</span>
+        </div>
+        <button class="retro-modal-close" id="btn-close-modal" type="button" aria-label="Tutup Modal">✕</button>
+      </div>
+
+      <form class="retro-modal-body" id="upload-form">
+        <!-- Input PIN Keamanan Admin -->
+        <div class="form-group">
+          <label for="upload-pin">
+            <span>🔑 PIN Keamanan Admin</span>
+            <small>*Hanya pemilik yang dapat mengunggah</small>
+          </label>
+          <input type="password" id="upload-pin" class="form-control" placeholder="Masukkan NIM kamu (230511104)" required autocomplete="off">
+        </div>
+
+        <!-- Custom Retro Dropzone File Picker -->
+        <div class="form-group">
+          <label>
+            <span>📄 Pilih Berkas Tugas</span>
+            <small>PDF, ZIP, DOCX, PNG, JPG (Maks 25MB)</small>
+          </label>
+          <div class="retro-dropzone" id="retro-dropzone" tabindex="0">
+            <div class="dropzone-icon">📁</div>
+            <div class="dropzone-title">Klik atau seret (drag &amp; drop) berkas ke sini</div>
+            <div class="dropzone-sub">Mendukung semua format dokumen tugas kuliah</div>
+          </div>
+          <input type="file" id="upload-file-input" style="display:none;" required>
+          <div id="dropzone-file-display" style="display:none;" class="dropzone-file-info">
+            <span id="dropzone-filename">📄 file.pdf</span>
+            <span id="dropzone-filesize" style="color:var(--muted);">1.2 MB</span>
+          </div>
+        </div>
+
+        <!-- Detail Tugas: Judul -->
+        <div class="form-group">
+          <label for="upload-title">Judul Berkas Tugas</label>
+          <input type="text" id="upload-title" class="form-control" placeholder="Contoh: Laporan Praktikum Pemrograman Web" required>
+        </div>
+
+        <!-- Detail Tugas: Mata Kuliah & Kategori -->
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label for="upload-course">Mata Kuliah</label>
+            <input type="text" id="upload-course" class="form-control" placeholder="Contoh: Pemrograman Web / ADPL" required>
+          </div>
+          <div class="form-group">
+            <label for="upload-category">Kategori / Label</label>
+            <select id="upload-category" class="form-control">
+              <option value="SEMESTER 5">SEMESTER 5</option>
+              <option value="DOKUMEN">DOKUMEN</option>
+              <option value="DIAGRAM">DIAGRAM</option>
+              <option value="SOURCE CODE">SOURCE CODE</option>
+              <option value="TUGAS BESAR">TUGAS BESAR</option>
+              <option value="PRAKTIKUM">PRAKTIKUM</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Detail Tugas: Deskripsi -->
+        <div class="form-group">
+          <label for="upload-desc">Ringkasan / Catatan Singkat</label>
+          <textarea id="upload-desc" class="form-control" placeholder="Tuliskan catatan singkat mengenai isi dokumen tugas ini..."></textarea>
+        </div>
+
+        <!-- Progress Bar Upload (Hidden by default) -->
+        <div class="upload-progress-wrapper" id="upload-progress-wrapper" style="display:none;">
+          <div class="upload-progress-meta">
+            <span id="upload-status-text">Mengunggah ke Cloudinary server...</span>
+            <span id="upload-percent">0%</span>
+          </div>
+          <div class="retro-progress-bar">
+            <div class="retro-progress-fill" id="upload-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Pesan Status Error / Sukses -->
+        <div id="modal-alert" style="display:none;"></div>
+
+        <!-- Tombol Aksi Modal -->
+        <div class="retro-modal-actions">
+          <button type="button" class="btn outline" id="btn-cancel-upload">Batal</button>
+          <button type="submit" class="btn yellow" id="btn-submit-upload">🚀 Mulai Unggah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- External JavaScript (dengan cache-buster version) -->
-  <script src="script.js?v=2.4"></script>
+  <script src="script.js?v=2.5"></script>
 </body>
 
 </html>
