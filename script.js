@@ -459,7 +459,6 @@ function renderDocCard(doc, isPrepend = false) {
       </div>
       <div class="doc-actions">
         <a class="btn outline" href="${escapeHTML(doc.url)}" target="_blank" rel="noopener">Preview ↗</a>
-        <a class="btn" href="${escapeHTML(downloadUrl)}" download="${escapeHTML(doc.filename)}" target="_blank" rel="noopener">Unduh 📥</a>
       </div>
     </div>
   `;
