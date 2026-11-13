@@ -240,11 +240,11 @@ function getFileIcon(ext) {
   return '📁';
 }
 
-function getDownloadUrl(url, filename) {
+function getDownloadUrl(url) {
   if (!url) return '';
+  // Gunakan flag fl_attachment bersih agar Cloudinary otomatis mengunduh berkas dengan nama aslinya
   if (url.includes('cloudinary.com') && url.includes('/upload/')) {
-    const cleanFilename = encodeURIComponent((filename || 'dokumen').replace(/[^a-zA-Z0-9._-]/g, '_'));
-    return url.replace('/upload/', `/upload/fl_attachment:${cleanFilename}/`);
+    return url.replace('/upload/', '/upload/fl_attachment/');
   }
   return url;
 }
@@ -434,7 +434,7 @@ function renderDocCard(doc, isPrepend = false) {
   const icon = getFileIcon(doc.format);
   const badgeStyle = getCategoryBadgeStyle(doc.category);
   const displayFormat = (doc.format || 'FILE').toUpperCase();
-  const downloadUrl = getDownloadUrl(doc.url, doc.filename);
+  const downloadUrl = getDownloadUrl(doc.url);
 
   article.innerHTML = `
     <div class="window-header">
@@ -459,6 +459,7 @@ function renderDocCard(doc, isPrepend = false) {
       </div>
       <div class="doc-actions">
         <a class="btn outline" href="${escapeHTML(doc.url)}" target="_blank" rel="noopener">Preview ↗</a>
+        <a class="btn" href="${escapeHTML(downloadUrl)}">Unduh 📥</a>
       </div>
     </div>
   `;
