@@ -241,22 +241,13 @@ function getFileIcon(ext) {
 }
 
 function getCategoryBadgeStyle(cat) {
-  switch (cat) {
-    case 'SEMESTER 5':
-      return 'background:var(--accent-secondary); color:#fff;';
-    case 'SEMESTER 4':
-      return 'background:#3b82f6; color:#fff;';
-    case 'DIAGRAM':
-      return 'background:var(--accent-purple); color:#fff;';
-    case 'SOURCE CODE':
-      return 'background:var(--accent-green); color:#fff;';
-    case 'TUGAS BESAR':
-      return 'background:var(--accent); color:#fff;';
-    case 'PRAKTIKUM':
-      return 'background:var(--accent-yellow); color:#1a1a1e;';
-    default:
-      return 'background:var(--accent-yellow); color:#1a1a1e;';
-  }
+  const c = (cat || '').toUpperCase();
+  if (c.includes('SEMESTER 5') || c.includes('SEMESTER')) return 'background:var(--accent-secondary); color:#fff;';
+  if (c.includes('DIAGRAM') || c.includes('DESAIN')) return 'background:var(--accent-purple); color:#fff;';
+  if (c.includes('CODE') || c.includes('KODING') || c.includes('SOURCE')) return 'background:var(--accent-green); color:#fff;';
+  if (c.includes('BESAR') || c.includes('AKHIR') || c.includes('PROYEK')) return 'background:var(--accent); color:#fff;';
+  if (c.includes('PRAKTIKUM') || c.includes('LAB')) return 'background:var(--accent-yellow); color:#1a1a1e;';
+  return 'background:var(--accent-yellow); color:#1a1a1e;';
 }
 
 function updateTugasCounter() {
@@ -576,7 +567,7 @@ if (uploadForm) {
             id: 'cloud_' + Date.now(),
             title: uploadTitle.value.trim() || file.name,
             course: uploadCourse.value.trim() || 'Umum',
-            category: uploadCategory.value || 'DOKUMEN',
+            category: (uploadCategory && uploadCategory.value.trim() ? uploadCategory.value.trim().toUpperCase() : 'DOKUMEN'),
             desc: uploadDesc.value.trim() || 'Berkas tugas kuliah terunggah aman di Cloudinary.',
             format: ext,
             size: formatBytes(res.bytes || file.size),

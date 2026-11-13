@@ -18,7 +18,7 @@
     rel="stylesheet">
 
   <!-- External Stylesheet (dengan cache-buster version) -->
-  <link rel="stylesheet" href="style.css?v=2.9">
+  <link rel="stylesheet" href="style.css?v=3.0">
 </head>
 
 <body>
@@ -1160,14 +1160,15 @@
           </div>
           <div class="form-group">
             <label for="upload-category">Kategori / Label</label>
-            <select id="upload-category" class="form-control">
-              <option value="SEMESTER 5">SEMESTER 5</option>
-              <option value="DOKUMEN">DOKUMEN</option>
-              <option value="DIAGRAM">DIAGRAM</option>
-              <option value="SOURCE CODE">SOURCE CODE</option>
-              <option value="TUGAS BESAR">TUGAS BESAR</option>
-              <option value="PRAKTIKUM">PRAKTIKUM</option>
-            </select>
+            <input type="text" id="upload-category" class="form-control" list="category-suggestions"
+              placeholder="Cth: SEMESTER 5, PROYEK, dll">
+            <datalist id="category-suggestions">
+              <option value="TUGAS HARIAN"></option>
+              <option value="TUGAS BESAR"></option>
+              <option value="PRAKTIKUM"></option>
+              <option value="DOKUMEN"></option>
+              <option value="PROYEK"></option>
+            </datalist>
           </div>
         </div>
 
@@ -1220,11 +1221,13 @@
       </div>
 
       <form class="retro-modal-body" id="delete-form">
-        <div style="display:flex; align-items:center; gap:14px; background:rgba(255, 95, 86, 0.08); border:1.5px solid var(--accent); border-radius:var(--radius-sm); padding:14px;">
+        <div
+          style="display:flex; align-items:center; gap:14px; background:rgba(255, 95, 86, 0.08); border:1.5px solid var(--accent); border-radius:var(--radius-sm); padding:14px;">
           <span style="font-size:1.8rem; line-height:1;">⚠️</span>
           <div>
             <h4 style="margin:0 0 4px; font-size:0.95rem; font-weight:800;">Konfirmasi Hapus Berkas</h4>
-            <p style="margin:0; font-size:0.8rem; color:var(--muted); font-family:'Space Mono', monospace;" id="delete-target-filename">Apakah kamu yakin ingin menghapus berkas ini?</p>
+            <p style="margin:0; font-size:0.8rem; color:var(--muted); font-family:'Space Mono', monospace;"
+              id="delete-target-filename">Apakah kamu yakin ingin menghapus berkas ini?</p>
           </div>
         </div>
 
@@ -1233,7 +1236,8 @@
             <span>🔑 Masukkan PIN Admin</span>
             <small>*Hanya pemilik yang dapat menghapus</small>
           </label>
-          <input type="password" id="delete-pin" class="form-control" placeholder="Masukkan PIN Keamanan" required autocomplete="off">
+          <input type="password" id="delete-pin" class="form-control" placeholder="Masukkan PIN Keamanan" required
+            autocomplete="off">
         </div>
 
         <!-- Alert error / sukses saat hapus -->
@@ -1241,14 +1245,15 @@
 
         <div class="retro-modal-actions">
           <button type="button" class="btn outline" id="btn-cancel-delete">Batal</button>
-          <button type="submit" class="btn" id="btn-confirm-delete" style="background:var(--accent); color:#fff;">🗑️ Hapus Sekarang</button>
+          <button type="submit" class="btn" id="btn-confirm-delete" style="background:var(--accent); color:#fff;">🗑️
+            Hapus Sekarang</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- External JavaScript (dengan cache-buster version) -->
-  <script src="script.js?v=2.9"></script>
+  <script src="script.js?v=3.0"></script>
 </body>
 
 </html>
